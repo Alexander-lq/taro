@@ -25,7 +25,7 @@ const ipcApiRoute = {
   createPoolNotice: 'controller.framework.createPoolNotice',
   someJobByPool: 'controller.framework.someJobByPool',
   hello: 'controller.framework.hello',
-  openSoftware: 'controller.framework.openSoftware', 
+  openSoftware: 'controller.framework.openSoftware',
 
   // os
   messageShow: 'controller.os.messageShow',
@@ -60,6 +60,9 @@ const ipcApiRoute = {
   killCrossServer: 'controller.cross.killServer',
   createCrossServer: 'controller.cross.createServer',
   requestApi: 'controller.cross.requestApi',
+
+  //upload
+  upload:'http://127.0.0.1:7073',
 }
 
 /**

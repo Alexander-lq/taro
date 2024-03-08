@@ -4,7 +4,7 @@
         <span>
           1. 基础控制
         </span>
-      </div>  
+      </div>
       <div class="one-block-2">
         <a-space>
           <a-button @click="create()"> 启动 </a-button>
@@ -17,7 +17,7 @@
         <span>
           2. 发送http请求
         </span>
-      </div>  
+      </div>
       <div class="one-block-2">
         <a-space>
           <a-button @click="request(1)"> 前端发送 </a-button>
@@ -28,7 +28,7 @@
         <span>
           3. 多个服务
         </span>
-      </div>  
+      </div>
       <div class="one-block-2">
         <a-space>
           <a-button @click="create()"> 启动 </a-button>
@@ -41,7 +41,7 @@
   import { ipcApiRoute } from '@/api/main';
   import { ipc } from '@/utils/ipcRenderer';
   import axios from 'axios';
-  
+
   export default {
     data() {
       return {
@@ -53,13 +53,13 @@
       info() {
         ipc.invoke(ipcApiRoute.crossInfo, {}).then(res => {
           console.log('res:', res);
-        }) 
+        })
       },
       getUrl() {
         ipc.invoke(ipcApiRoute.getCrossUrl, {name: 'goapp'}).then(url => {
           this.serverUrl = url;
           this.$message.info(`服务地址: ${url}`);
-        }) 
+        })
       },
       kill() {
         // name参数是 进程对象上的name，这里仅作为参照
@@ -94,9 +94,9 @@
             console.log('res:', res);
             const data = res.data || null;
             this.$message.info(`服务返回: ${data}`);
-          }) 
+          })
         }
-      }    
+      }
     }
   };
   </script>
@@ -114,4 +114,3 @@
     }
   }
   </style>
-  

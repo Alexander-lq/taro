@@ -23,7 +23,20 @@ module.exports = (appInfo) => {
    */
   config.jobs = {
     messageLog: false
-  }; 
+  };
+
+  /**
+   * Cross-language service
+   * 跨语言服务
+   */
+  config.cross = {
+    go: {
+      enable: true,
+      name: 'goapp',
+      args: ['--port=7073'],
+      appExit: true,
+    }
+  };
 
   return {
     ...config

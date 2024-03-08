@@ -83,7 +83,7 @@ module.exports = (appInfo) => {
    * 内置http服务
    */     
   config.httpServer = {
-    enable: false,
+    enable: true,
     https: {
       enable: false, 
       key: '/public/ssl/localhost+1.key',

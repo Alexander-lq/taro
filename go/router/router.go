@@ -14,4 +14,5 @@ func Api() {
 
 	// 使用 gin 注册路由
 	eRouter.GinRouter.GET("/api/info", api.Info)
+	eRouter.GinRouter.POST("/api/UploadFileImpl", api.UploadFileImpl)
 }
