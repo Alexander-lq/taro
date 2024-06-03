@@ -62,7 +62,8 @@ const ipcApiRoute = {
   requestApi: 'controller.cross.requestApi',
 
   //upload
-  upload:'http://127.0.0.1:7073',
+  goApi:'http://127.0.0.1:7073',
+  encrtyApi:'http://127.0.0.1:7062',
 }
 
 /**

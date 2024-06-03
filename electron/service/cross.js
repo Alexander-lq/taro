@@ -50,7 +50,7 @@ class CrossService extends Service {
       name: 'javaapp',
       cmd: path.join(Ps.getExtraResourcesDir(), 'jre1.8.0_201/bin/javaw.exe'),
       directory: Ps.getExtraResourcesDir(),
-      args: ['-jar', '-server', '-Xms512M', '-Xmx512M', '-Xss512k', '-Dspring.profiles.active=prod', `-Dserver.port=18080`, `-Dlogging.file.path=${Ps.getLogDir()}`, `${jarPath}`],
+      args: ['-jar', '-server', '-Xms512M', '-Xmx512M', `-Dserver.port=7062`, `-Dlogging.file.path=${Ps.getLogDir()}`, `${jarPath}`],
       appExit: false,
     }
     if (Is.macOS()) {
@@ -59,6 +59,7 @@ class CrossService extends Service {
     }
     if (Is.linux()) {
       // Setup Java program
+      opt.cmd = path.join(Ps.getExtraResourcesDir(), 'jre1.8.0_201_linux/bin/java');
     }
 
     const entity = await Cross.run(serviceName, opt);

@@ -29,7 +29,7 @@ module.exports = (appInfo) => {
     minWidth: 400,
     minHeight: 300,
     webPreferences: {
-      //webSecurity: false,
+      webSecurity: false,
       contextIsolation: false, // false -> 可在渲染进程中使用electron的api，true->需要bridge.js(contextBridge)
       nodeIntegration: true,
       //preload: path.join(appInfo.baseDir, 'preload', 'bridge.js'),
@@ -90,9 +90,12 @@ module.exports = (appInfo) => {
       cert: '/public/ssl/localhost+1.pem'
     },
     host: '127.0.0.1',
-    port: 7071,
+    port: 7075,
     cors: {
-      origin: "*"
+      origin: "*",
+      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+      credentials: true,
+      allowHeaders: 'content-type',
     },
     body: {
       multipart: true,
@@ -107,6 +110,8 @@ module.exports = (appInfo) => {
       returnData: ''
     }
   };
+
+
 
   /**
    * 主进程

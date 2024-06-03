@@ -76,6 +76,12 @@ export default {
           pageName: 'Upload',
           params: {},
         },
+        'menu_7' : {
+          icon: 'icon-gouwu',
+          title: '镜像',
+          pageName: 'Encrty',
+          params: {},
+        },
       }
     };
   },

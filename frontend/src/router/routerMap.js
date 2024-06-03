@@ -188,6 +188,20 @@ const constantRouterMap = [
           },
         ]
       },
+      {
+        path: '/encrty',
+        name: 'Encrty',
+        component: () => import('@/layouts/Menu.vue'),
+        props: { id: 'encrty' },
+        redirect: { name: 'EncrtyIndex' },
+        children: [
+          {
+            path: '/encrty/index',
+            name: 'EncrtyIndex',
+            component: () => import('@/views/encrty/index.vue')
+          },
+        ]
+      },
     ]
   },
   {

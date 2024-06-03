@@ -13,4 +13,6 @@ module.exports = async () => {
   Addon.get('security').create();
   Addon.get('awaken').create();
   Addon.get('autoUpdater').create();
+    // 直接调用
+  Services.get('cross').createJavaServer();
 }

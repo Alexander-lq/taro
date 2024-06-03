@@ -124,6 +124,14 @@ export default {
       params: {}
     }
   },
+  encrty: {
+    'menu_100' : {
+      icon: 'profile',
+      title: '镜像转换',
+      pageName: 'EncrtyIndex',
+      params: {}
+    }
+  },
   effect: {
     'menu_100' : {
       icon: 'profile',

@@ -96,7 +96,7 @@ export default defineComponent({
       formData.append('regx', ruleForm.regx);
       formData.append('exportPath', ruleForm.exportPath);
 
-      const testApi = ipcApiRoute.upload + '/api/UploadFileImpl';
+      const testApi = ipcApiRoute.goApi + '/api/UploadFileImpl';
       const cfg = {
         method: 'post',
         url: testApi,
