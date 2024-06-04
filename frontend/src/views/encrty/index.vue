@@ -18,8 +18,8 @@
         />
       </a-form-item>
       <a-form-item :wrapper-col="{xs: { span: 24, offset: 0 },sm: { span: 16, offset: 8 }, }">
-        <a-button type="primary" @click="onSubmit" style="font-size: 16px">Create</a-button>
-        <a-button style="margin-left: 10px;font-size: 16px">Cancel</a-button>
+        <a-button type="primary" :loading="loading" @click="onSubmit" style="font-size: 16px" >确定</a-button>
+        <a-button style="margin-left: 10px;font-size: 16px">取消</a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -28,7 +28,7 @@
 
 
 import {UploadOutlined} from '@ant-design/icons-vue';
-import {defineComponent, inject, reactive, UnwrapRef} from 'vue';
+import {defineComponent, inject, reactive, ref, UnwrapRef} from 'vue';
 import { message } from 'ant-design-vue';
 import imagesEncrty from '@/api/modules/imagesEncrty'
 import { ipc } from '@/utils/ipcRenderer';
@@ -47,11 +47,13 @@ export default defineComponent({
     UploadOutlined,
   },
   setup() {
+    const loading = ref(false);
     const handleExportListInput = (event) => {
       ruleForm.exportList = event.target.value.split(',').map(item => item.trim());
     };
 
     const onSubmit = async () => {
+      loading.value = true;
       const requestData = {
         fileDecory: ruleForm.path,
         outDecory: ruleForm.outPath,
@@ -68,6 +70,7 @@ export default defineComponent({
           const {status} = error.response;
           // 处理 500 错误
           message.error(`服务器错误(${status}): ${error.response.error}`);
+          loading.value = false;
         }
       });
 
@@ -75,14 +78,17 @@ export default defineComponent({
         console.log(res)
         if(res.data.code!=200){
           message.error(res.data.message)
+          loading.value = false;
         }else {
           message.success(res.data.message);
+          loading.value = false;
         }
       }).catch(error => {
           if (error.response) {
             const {status} = error.response;
             // 处理 500 错误
             message.error(`服务器错误(${status}): ${error.response.error}`);
+            loading.value = false;
           }
         });
     };
@@ -93,15 +99,13 @@ export default defineComponent({
       exportList: []
     });
 
-
-
     return {
       handleExportListInput,
       labelCol: {style: {width: '150px'}},
       wrapperCol: {span: 14},
       onSubmit,
       ruleForm,
-      serverUrl: ''
+      loading
     };
   },
 });

@@ -9,9 +9,7 @@ module.exports = (appInfo) => {
   /**
    * 开发者工具
    */
-  config.openDevTools = {
-    mode: 'undocked'
-  };
+  config.openDevTools = true;
 
   /**
    * 应用程序顶部菜单
@@ -31,7 +29,7 @@ module.exports = (appInfo) => {
    */
   config.cross = {
     go: {
-      enable: true,
+      enable: false,
       name: 'goapp',
       args: ['--port=7073'],
       appExit: true,
