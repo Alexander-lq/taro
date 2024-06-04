@@ -19,7 +19,7 @@
           <a-radio value="1">C1C2C3</a-radio>
         </a-radio-group>
       </a-form-item>
-      <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
+      <a-form-item label="上传文件">
         <a-upload :file-list="fileList" :remove="handleRemove" :before-upload="beforeUpload">
           <a-button>
             <upload-outlined></upload-outlined>
@@ -27,9 +27,9 @@
           </a-button>
         </a-upload>
       </a-form-item>
-      <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
-        <a-button type="primary" @click="onSubmit">Create</a-button>
-        <a-button style="margin-left: 10px">Cancel</a-button>
+      <a-form-item :wrapper-col="{xs: { span: 24, offset: 0 },sm: { span: 16, offset: 8 }, }">
+        <a-button type="primary" @click="onSubmit" style="font-size: 16px">Create</a-button>
+        <a-button style="margin-left: 10px; font-size: 16px">Cancel</a-button>
       </a-form-item>
     </a-form>
   </div>

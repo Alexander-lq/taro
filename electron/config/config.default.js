@@ -23,7 +23,7 @@ module.exports = (appInfo) => {
    * 主窗口
    */
   config.windowsOption = {
-    title: 'EE框架',
+    title: '芋头',
     width: 980,
     height: 650,
     minWidth: 400,
@@ -167,7 +167,7 @@ module.exports = (appInfo) => {
     },
     tray: {
       enable: true,
-      title: 'EE程序',
+      title: '芋头',
       icon: '/public/images/tray.png'
     },
     security: {

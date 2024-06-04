@@ -7,6 +7,8 @@ import './assets/theme.less';
 import components from './components/global';
 import Router from './router/index';
 
+
+
 const app = createApp(App)
 app.config.productionTip = false
 
@@ -24,3 +26,5 @@ for (const i in AntIcon) {
 }
 
 app.use(Antd).use(Router).mount('#app')
+
+

@@ -38,50 +38,50 @@ export default {
       collapsed: true,
       current: 'menu_1',
       menu: {
+        // 'menu_1' : {
+        //   icon: 'icon-fengche',
+        //   title: '框架',
+        //   pageName: 'Framework',
+        //   params: {
+        //     // test: 'hello'
+        //   },
+        // },
+        // 'menu_2' : {
+        //   icon: 'icon-niudan',
+        //   title: '系统',
+        //   pageName: 'Os',
+        //   params: {},
+        // },
+        // 'menu_3' : {
+        //   icon: 'icon-xiangji',
+        //   title: '硬件',
+        //   pageName: 'Hardware',
+        //   params: {},
+        // },
+        // 'menu_4' : {
+        //   icon: 'icon-liuxing',
+        //   title: '特效',
+        //   pageName: 'Effect',
+        //   params: {},
+        // },
         'menu_1' : {
-          icon: 'icon-fengche',
-          title: '框架',
-          pageName: 'Framework',
-          params: {
-            // test: 'hello'
-          },
-        },
-        'menu_2' : {
-          icon: 'icon-niudan',
-          title: '系统',
-          pageName: 'Os',
-          params: {},
-        },
-        'menu_3' : {
-          icon: 'icon-xiangji',
-          title: '硬件',
-          pageName: 'Hardware',
-          params: {},
-        },
-        'menu_4' : {
-          icon: 'icon-liuxing',
-          title: '特效',
-          pageName: 'Effect',
-          params: {},
-        },
-        'menu_5' : {
           icon: 'icon-gouwu',
           title: 'cross',
           pageName: 'Cross',
           params: {},
         },
-        'menu_6' : {
+        'menu_2' : {
           icon: 'icon-gouwu',
           title: '转换',
           pageName: 'Upload',
           params: {},
         },
-        'menu_7' : {
-          icon: 'icon-gouwu',
-          title: '镜像',
-          pageName: 'Encrty',
-          params: {},
-        },
+        // 'menu_3' : {
+        //   icon: 'icon-gouwu',
+        //   title: '',
+        //   pageName: 'Encrty',
+        //   params: {},
+        // },
       }
     };
   },

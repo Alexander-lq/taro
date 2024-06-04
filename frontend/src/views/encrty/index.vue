@@ -17,9 +17,9 @@
           placeholder="如qcow2, doc, pdf"
         />
       </a-form-item>
-      <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
-        <a-button type="primary" @click="onSubmit">Create</a-button>
-        <a-button style="margin-left: 10px">Cancel</a-button>
+      <a-form-item :wrapper-col="{xs: { span: 24, offset: 0 },sm: { span: 16, offset: 8 }, }">
+        <a-button type="primary" @click="onSubmit" style="font-size: 16px">Create</a-button>
+        <a-button style="margin-left: 10px;font-size: 16px">Cancel</a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -28,12 +28,11 @@
 
 
 import {UploadOutlined} from '@ant-design/icons-vue';
-import {defineComponent, ref, reactive, UnwrapRef} from 'vue';
-import {ipcApiRoute} from '@/api/main';
+import {defineComponent, inject, reactive, UnwrapRef} from 'vue';
 import { message } from 'ant-design-vue';
-import axios from "axios";
-import {List} from "postcss/lib/list";
-import {list} from "postcss";
+import imagesEncrty from '@/api/modules/imagesEncrty'
+import { ipc } from '@/utils/ipcRenderer';
+import { ipcApiRoute } from '@/api/main';
 
 interface RuleForm {
   path: string,
@@ -48,43 +47,38 @@ export default defineComponent({
     UploadOutlined,
   },
   setup() {
-
     const handleExportListInput = (event) => {
       ruleForm.exportList = event.target.value.split(',').map(item => item.trim());
     };
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
       const requestData = {
         fileDecory: ruleForm.path,
         outDecory: ruleForm.outPath,
         name: ruleForm.name,
         excludeExtensions: Array.isArray(ruleForm.exportList) ? ruleForm.exportList : [],
       };
-      // const jsonData = JSON.stringify(requestData);
-      // const formData = new FormData();
-      // formData.append('fileDecory', ruleForm.path);
-      // formData.append('outDecory', ruleForm.outPath);
-      // formData.append('name', ruleForm.name);
-      // formData.append('excludeExtensions', ruleForm.exportList);
-      const testApi =import.meta.env.VITE_JAVA_URL +"/encrty/upload";
+      let serverUrl = '';
       const jsonData = JSON.stringify(requestData);
-      const cfg = {
-        method: 'post',
-        url: testApi,
-        data: jsonData,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        timeout: 120000,
-      }
-      axios(cfg).then(res => {
+      await ipc.invoke(ipcApiRoute.getCrossUrl, {name: 'javaapp'}).then(url => {
+        serverUrl = url;
+        message.info(`服务地址: ${url}`);
+      }).catch(error => {
+        if (error.response) {
+          const {status} = error.response;
+          // 处理 500 错误
+          message.error(`服务器错误(${status}): ${error.response.error}`);
+        }
+      });
+
+      await imagesEncrty.upload(jsonData,serverUrl).then((res) => {
+        console.log(res)
         if(res.data.code!=200){
           message.error(res.data.message)
         }else {
           message.success(res.data.message);
         }
-      })
-        .catch(error => {
+      }).catch(error => {
           if (error.response) {
             const {status} = error.response;
             // 处理 500 错误
@@ -106,13 +100,14 @@ export default defineComponent({
       labelCol: {style: {width: '150px'}},
       wrapperCol: {span: 14},
       onSubmit,
-      ruleForm
+      ruleForm,
+      serverUrl: ''
     };
   },
 });
 </script>
 <style lang="less" scoped>
-#upload-file {
+#encrty-file {
   padding: 40px 10px;
   text-align: left;
   width: 100%;
