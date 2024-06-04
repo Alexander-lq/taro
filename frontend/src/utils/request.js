@@ -30,6 +30,9 @@ service.interceptors.response.use(
     if (!!response.msg) {
       ElMessage.error('请求错误：' + response.msg)
     } else {
+      if(response.message){
+        response.data.msg = response.message
+      }
       if (!response.config.needValidateResult || response.data.code === 200) {
         return response
       } else if (response.data.code === 500) {
