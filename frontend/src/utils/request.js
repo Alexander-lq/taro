@@ -27,10 +27,12 @@ service.interceptors.request.use((config) => {
 let lastToastLoginTime = new Date().getTime();
 service.interceptors.response.use(
   (response) => {
-    if (!!response.message) {
-      ElMessage.error('请求错误：' + response.message)
+    if (!!response.msg) {
+      ElMessage.error('请求错误：' + response.msg)
     } else {
       if (!response.config.needValidateResult || response.data.code === 200) {
+        return response
+      } else if (response.data.code === 500) {
         return response
       } else if (response.data.code === 400) {
         // 两秒钟只提示一次
@@ -41,7 +43,7 @@ service.interceptors.response.use(
         let href = encodeURIComponent(window.location.href)
         window.location = import.meta.env.VITE_APP_BASE_API + '#/user/login?redirect=' + href
       } else if (response.data.code !== 200) {
-        ElMessage.error(response.data.errMsg || '未知错误')
+        ElMessage.error(response.data.msg || '未知错误')
       }
     }
     return Promise.reject('请求错误')

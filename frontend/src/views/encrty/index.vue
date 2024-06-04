@@ -75,12 +75,11 @@ export default defineComponent({
       });
 
       await imagesEncrty.upload(jsonData,serverUrl).then((res) => {
-        console.log(res)
         if(res.data.code!=200){
-          message.error(res.data.message)
+          message.error(res.data.msg)
           loading.value = false;
         }else {
-          message.success(res.data.message);
+          message.success(res.data.msg);
           loading.value = false;
         }
       }).catch(error => {

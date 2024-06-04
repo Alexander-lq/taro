@@ -40,8 +40,9 @@
 import {UploadOutlined} from '@ant-design/icons-vue';
 import {defineComponent, ref, reactive, UnwrapRef} from 'vue';
 import {ipcApiRoute} from '@/api/main';
+import exchange from '@/api/modules/exchange';
 import { message } from 'ant-design-vue';
-import axios from "axios";
+import { ipc } from '@/utils/ipcRenderer';
 
 interface RuleForm {
   path: string,
@@ -85,7 +86,7 @@ export default defineComponent({
       return false;
     };
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
       const formData = new FormData();
       fileList.value.forEach((file: FileItem) => {
         formData.append('upload[]', file as any);
@@ -96,20 +97,31 @@ export default defineComponent({
       formData.append('regx', ruleForm.regx);
       formData.append('exportPath', ruleForm.exportPath);
 
-      const testApi = ipcApiRoute.goApi + '/api/UploadFileImpl';
-      const cfg = {
-        method: 'post',
-        url: testApi,
-        data: formData,
-        timeout: 1000,
-      }
-      axios(cfg).then(res => {
-        if(res.data.code==500){
+      let serverUrl = '';
+      await ipc.invoke(ipcApiRoute.getCrossUrl, {name: 'goapp'}).then(url => {
+        serverUrl = url;
+        message.info(`服务地址: ${url}`);
+      }).catch(error => {
+        if (error.response) {
+          const {status} = error.response;
+          // 处理 500 错误
+          message.error(`服务器错误(${status}): ${error.response.error}`)
+        }
+      });
+
+      await exchange.upload(formData,serverUrl).then((res) => {
+        if(res.data.code!=200){
           message.error(res.data.msg)
         }else {
           message.success(res.data.msg);
         }
-      })
+      }).catch(error => {
+        if (error.response) {
+          const {status} = error.response;
+          // 处理 500 错误
+          message.error(`服务器错误(${status}): ${error.response.error}`);
+        }
+      });
       uploading.value = true;
     };
 
